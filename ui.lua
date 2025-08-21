@@ -1,14 +1,11 @@
--- Hexagon UI Library
 local TweenService, RunService, UserInputService,gui,dragging,dragInput,dragStart,startPos,cpt,cpf,cppicking,cppickingVal,cppickingAlpha,cphue,cpsat,cpval,focused,highest,focusedBox = game:GetService("TweenService"),game:GetService("RunService"), game:GetService("UserInputService")
 local cpalpha = 0
 
--- Dragging
 local function updateDrag(input)
     local delta = input.Position - dragStart
     gui.Position = UDim2.new(0, startPos.X.Offset + delta.X, 0, startPos.Y.Offset + delta.Y)
 end
 
---color picker
 local function updateColorHue(input, obj, hue, sat)
 	hue = (obj.AbsoluteSize.X-(input.Position.X-obj.AbsolutePosition.X))/obj.AbsoluteSize.X
 	sat = (obj.AbsoluteSize.Y-(input.Position.Y-obj.AbsolutePosition.Y))/obj.AbsoluteSize.Y
@@ -57,7 +54,6 @@ local function rgbToHsv(r, g, b)
 	return h, s, v
 end
 
---drag function and color picker
 UserInputService.InputChanged:connect(function(input)
     if input == dragInput and dragging then
         updateDrag(input)
@@ -67,13 +63,11 @@ UserInputService.InputChanged:connect(function(input)
 	end
 end)
 
---slider
 local function round(num, bracket)
 	bracket = bracket or 1
 	return math.floor(num/bracket + math.sign(num) * 0.5) * bracket
 end
 
---zindex stuff
 local function focusOnOption(obj)
 	if highest then
 		highest.ZIndex = highest.ZIndex - 5
@@ -155,17 +149,17 @@ local library = {
 	windows = {},
     pointers = {},
     settings = {
-        guiname = "Hexagon",
-		title = "Hexagon",
+        guiname = "Revive",
+		title = "Revive",
 		logo = "rbxassetid://4350178803", -- "http://www.roblox.com/asset/?id=6597976562",
-        footer = " Want to try our new product? https://cipex.solutions",
+        footer = " ",
         modal = true,
         font = Enum.Font.SourceSans,
         textsize = 16,
         textstroke = true
     },
     theme = {
-        buttons = Color3.fromRGB(20, 200, 20), -- toggle, sliders colors
+        buttons = Color3.fromRGB(20, 200, 20),
         text = Color3.fromRGB(235, 235, 235),
         textboxtext = Color3.fromRGB(145, 145, 145),
         main = Color3.fromRGB(30, 30, 30),
@@ -1947,8 +1941,8 @@ end
 
 local function GetConfigs()
 	cfgs = {}
-	for i,v in pairs(listdir("hexhub")) do
-		if v:sub(-10) == ".hexhubcfg" then
+	for i,v in pairs(listdir("rev")) do
+		if v:sub(-10) == ".revcfg" then
 			table.insert(cfgs, string.split(v, ".")[1]:sub(8))
 		end
 	end
